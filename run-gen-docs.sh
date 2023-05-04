@@ -6,13 +6,6 @@ WORKING_DIR="$BIN_PATH/knowl_temp"
 KNOWL_AUTOMERGE_NAME="automerge.zip"
 AUTOMERGE_DOWNLOAD_URL='https://releases.knowl.io/automerge.zip'
 
-
-get_abs_filename() {
-  # $1 : relative filename
-  echo "$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
-}
-SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-
 if [ -z "$1" ]
 then
     echo 'no repo path provided'
