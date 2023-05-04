@@ -1,10 +1,10 @@
 #!/bin/sh -uex
-echo "Knowl script running to generate ai docs..."
+echo "Knowl script running to auto-merge docs..."
 
 BIN_PATH="$HOME"
 WORKING_DIR="$BIN_PATH/knowl_temp"
-KNOWL_CODE2DOC_NAME="code2doc.zip"
-CODE2DOC_DOWNLOAD_URL='https://releases.knowl.io/code2doc.zip'
+KNOWL_AUTOMERGE_NAME="automerge.zip"
+AUTOMERGE_DOWNLOAD_URL='https://releases.knowl.io/automerge.zip'
 
 
 get_abs_filename() {
@@ -65,11 +65,11 @@ download_from_link() {
 
 }
 
-check_knowl_cli_version() {
-    echo "downloading the latest cli version"
-    file_url=$CODE2DOC_DOWNLOAD_URL
+check_knowl_utils_version() {
+    echo "downloading the latest knowl utils version"
+    file_url=$AUTOMERGE_DOWNLOAD_URL
     #get folder names in the working directory
-    download_from_link $file_url $WORKING_DIR/ $WORKING_DIR/$KNOWL_CODE2DOC_NAME
+    download_from_link $file_url $WORKING_DIR/ $WORKING_DIR/$KNOWL_AUTOMERGE_NAME
 
     export PATH=$PATH:$WORKING_DIR
 
@@ -83,11 +83,9 @@ cleanup() {
 verify_wget
 verify_unzip
 verify_tmp
-check_knowl_cli_version
+check_knowl_utils_version
 cd $WORKING_DIR
-$BIN_UNZIP $WORKING_DIR/$KNOWL_CODE2DOC_NAME -d $WORKING_DIR
-cd s3/importer
-npm install -g typescript@4.8.4
-npm install --save-dev -g ts-node@10.9.1
-npm install --save node-fetch@2.6.2 @types/node-fetch@2.6.2 ws dotenv cmd-ts http-status-codes
+$BIN_UNZIP $WORKING_DIR/$KNOWL_AUTOMERGE_NAME -d $WORKING_DIR
+cd automerge/importer
+npm install --save typescript@4.8.4 ts-node@10.9.1 node-fetch@2.6.2 @types/node-fetch@2.6.2 ws dotenv cmd-ts http-status-codes
 ts-node src/index.ts automerge $GIT_REPO $GIT_OWNER $GIT_BRANCH
