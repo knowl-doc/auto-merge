@@ -86,7 +86,7 @@ verify_tmp
 check_knowl_utils_version
 cd $WORKING_DIR
 $BIN_UNZIP $WORKING_DIR/$KNOWL_AUTOMERGE_NAME -d $WORKING_DIR
-cd automerge/importer
+cd automerge/knowl-utils
 npm install -g typescript@4.8.4 ts-node@10.9.1
 npm install node-fetch@2.6.2 @types/node-fetch@2.6.2 ws dotenv cmd-ts http-status-codes
 ts-node src/index.ts automerge $GIT_REPO $GIT_OWNER $GIT_BRANCH
